@@ -19,7 +19,13 @@
                 		DBP_AUDIOMP3=>'audio mp3',
                 		DBP_WHITEBOARDFULL=>'whiteboard',
                 		DBP_SNAPSHOT=>'snapshot');
-                echo html_writer::select($choices, 'param4', $this->field->param4, false, array('id' => 'param4'));
+                	
+                echo html_writer::select($choices, 
+                			'param4', 
+                			isset($this->field->param4) ? $this->field->param4:DBP_AUDIOMP3 , 
+                			false, 
+                			array('id' => 'param4')
+                			);
             ?>        
         </td>
     </tr>
@@ -28,7 +34,7 @@
         <td class="c1">
             <input class="c1" type="text" name="param5" id="param5"
                    value="<?php if (isset($this->field->param5)) { p($this->field->param5); } else { echo '0'; } ?>" />
-            <?php echo get_string('maxbytes_desc', 'datafield_textarea'); ?>
+            <?php echo get_string('maxbytes_desc', 'datafield_poodll'); ?>
         </td>
     </tr>
 </table>
