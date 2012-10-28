@@ -23,8 +23,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2012061700;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2012102500;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2011070100.00;        // Requires this Moodle version
 $plugin->component = 'datafield_poodll'; // Full name of the plugin (used for diagnostics)
-$plugin->dependencies = array('filter_poodll' => 2012080500);
+$plugin->release   = '1.0 (Build 2012102500)';
+$plugin->dependencies = array('filter_poodll' => 2012102100);
 $plugin->maturity  = MATURITY_BETA;

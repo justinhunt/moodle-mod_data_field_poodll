@@ -23,6 +23,7 @@
 
 require_once($CFG->dirroot.'/lib/filelib.php');
 require_once($CFG->dirroot.'/repository/lib.php');
+require_once($CFG->dirroot . '/filter/poodll/poodllresourcelib.php');
 
 define('DBP_AUDIO',0);
 define('DBP_VIDEO',1);
@@ -93,11 +94,11 @@ class data_field_poodll extends data_field_base {
         $usercontextid=get_context_instance(CONTEXT_USER, $USER->id)->id;
         switch ($this->field->param4){
         	case DBP_AUDIO:
-        		$str .= fetchAudioRecorderForSubmission('swf','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
+        		$str .= fetchAudioRecorderForSubmission('auto','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
         		break;
         	
         	case DBP_VIDEO:
-        		$str .= fetchVideoRecorderForSubmission('swf','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
+        		$str .= fetchVideoRecorderForSubmission('auto','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
         		break;
         	
         	case DBP_AUDIOMP3:
@@ -223,11 +224,11 @@ class data_field_poodll extends data_field_base {
 				
         	case DBP_WHITEBOARDSIMPLE:
         	case DBP_WHITEBOARDFULL:
-        		$str .= "<img alt=\"submittedimage\" src=\"" . $mediapath . "\" />";
+        		$str .= "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\"  src=\"" . $mediapath . "\" />";
         		break;
         		
         	case DBP_SNAPSHOT:
-        		$str .= "<img alt=\"submittedimage\" src=\"" . $mediapath . "\" />";
+        		$str .= "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\" src=\"" . $mediapath . "\" />";
         		break;
 			
 			}
