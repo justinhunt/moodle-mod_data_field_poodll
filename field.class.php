@@ -224,7 +224,7 @@ class data_field_poodll extends data_field_base {
 				
         	case DBP_WHITEBOARDSIMPLE:
         	case DBP_WHITEBOARDFULL:
-        		$str .= "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\"  src=\"" . $mediapath . "\" />";
+        		$str = "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\"  src=\"" . $mediapath . "\" />";
         		break;
         		
         	case DBP_SNAPSHOT:
