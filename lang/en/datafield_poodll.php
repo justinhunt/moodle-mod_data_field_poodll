@@ -32,5 +32,5 @@ $string['clicktoplay'] = 'Click to Play';
 $string['responsetype'] = 'PoodLL Widget (Response type)';
 
 //these need to go in /mod/data/lang/en/data.php
-//$string['poodll'] = 'PoodLL';
-//$string['namepoodll'] = 'PoodLL';
+$string['poodll'] = 'PoodLL';
+$string['namepoodll'] = 'PoodLL';

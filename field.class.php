@@ -172,7 +172,8 @@ class data_field_poodll extends data_field_base {
         if (!empty($content->content)) {
             $draftitemid = file_get_submitted_draft_itemid('field_'. $this->field->id. '_itemid');
             $options = $this->get_options();
-            $content->content = file_save_draft_area_files($draftitemid, $this->context->id, 'mod_data', 'content', $content->id, $options, $content->content);
+            $content->content = file_save_draft_area_files($draftitemid, $this->context->id, 
+					'mod_data', 'content', $content->id, $options, $content->content);
         	$content->content = "@@PLUGINFILE@@/" . $content->content;
         }
         $rv = $DB->update_record('data_content', $content);
@@ -189,15 +190,11 @@ class data_field_poodll extends data_field_base {
     function display_browse_field($recordid, $template) {
         global $DB, $CFG;
         
-        //lists of audio flowplayers/jw players will break if embedded and 
-		// flowplayers should have image link load deferral anyway
-		if($CFG->filter_poodll_defaultplayer == 'pd'){
-			$embed = 'true';
-			$embedstring = get_string('clicktoplay', 'datafield_poodll');
-		}else{
-			$embedstring = 'clicktoplay';
-			$embed='false';
-		}
+        //We have quite the old javascript.php based "click to play"
+		//This just make sure double sure doesn't get called.
+		$embedstring = 'empty';
+		$embed='false';
+
 
         if ($content = $DB->get_record('data_content', array('fieldid' => $this->field->id, 'recordid' => $recordid))) {
             if (isset($content->content)) {
@@ -206,18 +203,21 @@ class data_field_poodll extends data_field_base {
                     $options->filter = false;
                 }
                 $options->para = false;
-                $mediapath = file_rewrite_pluginfile_urls($content->content, 'pluginfile.php', $this->context->id, 'mod_data', 'content', $content->id, $this->get_options());
+                $mediapath = file_rewrite_pluginfile_urls($content->content, 'pluginfile.php', 
+					$this->context->id, 'mod_data', 'content', $content->id, $this->get_options());
                			
          switch ($this->field->param4){
         	case DBP_AUDIOMP3:
         	case DBP_AUDIO:
-        	 	$str = format_text('{POODLL:type=audio,path='.	urlencode($mediapath) .',protocol=http,embed=' . $embed . ',embedstring='. $embedstring .'}', FORMAT_HTML);
+        	 	$str = format_text('{POODLL:type=audio,path='.	urlencode($mediapath) 
+						.',protocol=http,embed=' . $embed . ',embedstring='. $embedstring .'}', FORMAT_HTML);
         		//this lower string though more efficient didn't load flowplayer embed js on time, so better to defer to the filter
-        		//$str= fetchSimpleAudioPlayer('auto', $mediapath, "http",  $CFG->filter_poodll_audiowidth, $CFG->filter_poodll_audioheight,$embed, $embedstring,false);
+        		//$str= fetchSimpleAudioPlayer('auto', $mediapath, "http",  $CFG->filter_poodll_audiowidth, 					           $CFG->filter_poodll_audioheight,$embed, $embedstring,false);
         		break;
         	
         	case DBP_VIDEO:
-        		$str = format_text('{POODLL:type=video,path='.	urlencode($mediapath) .',protocol=http,embed=' . $embed . ',embedstring='. $embedstring .'}', FORMAT_HTML);
+        		$str = format_text('{POODLL:type=video,path='.	urlencode($mediapath) 
+						.',protocol=http,embed=' . $embed . ',embedstring='. $embedstring .'}', FORMAT_HTML);
 				//this lower string though more efficient didn't load flowplayer embed js on time, so better to defer to the filter
 				//$str .= fetchSimpleVideoPlayer('auto',$mediapath,$CFG->filter_poodll_videowidth,$CFG->filter_poodll_videoheight,'http',false,true,'Play');
 				break;
@@ -228,7 +228,7 @@ class data_field_poodll extends data_field_base {
         		break;
         		
         	case DBP_SNAPSHOT:
-        		$str .= "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\" src=\"" . $mediapath . "\" />";
+        		$str = "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\" src=\"" . $mediapath . "\" />";
         		break;
 			
 			}
