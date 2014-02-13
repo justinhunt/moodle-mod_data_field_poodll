@@ -55,7 +55,7 @@ class data_field_poodll extends data_field_base {
         $options['trusttext'] = false;
         $options['forcehttps'] = false;
         $options['subdirs'] = false;
-        $options['maxfiles'] = 1;
+        $options['maxfiles'] = -1;
         $options['context'] = $this->context;
         $options['maxbytes'] = $this->field->param5;
         $options['changeformat'] = 0;
