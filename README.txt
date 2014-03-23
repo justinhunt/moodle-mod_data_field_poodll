@@ -22,5 +22,5 @@ When you make a database activity in Moodle, amongst the standard list of fields
 Good luck.
 
 Justin Hunt
-Chief PoodLL'er
+PoodLL Guy
 poodllsupport@gmail.com
