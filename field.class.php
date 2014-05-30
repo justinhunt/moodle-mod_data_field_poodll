@@ -71,14 +71,22 @@ class data_field_poodll extends data_field_base {
 
         $str = '<div title="'.$this->field->description.'">';
 
-        editors_head_setup();
+        //editors_head_setup();
         $options = $this->get_options();
-
         $itemid = $this->field->id;
         $field = 'field_'.$itemid;
-
+        $vectordata="";
+		$draftitemid=0;
+		$oldfilename="";
+        
         if ($recordid && $content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))){
             $format = $content->content1;
+            if($content->content2){
+            	$vectordata = $content->content2;
+            }
+          
+			$draftitemid = file_get_submitted_draft_itemid('field_'. $this->field->id. '_itemid');
+			$oldfilename = str_replace("@@PLUGINFILE@@/", '',$content->content);
             $text = clean_text($content->content, $format);
             $text = file_prepare_draft_area($draftitemid, $this->context->id, 'mod_data', 'content', $content->id, $options, $text);
         } else {
@@ -87,7 +95,10 @@ class data_field_poodll extends data_field_base {
 	
 		$updatecontrol = $field;
 		$idcontrol = $field . '_itemid';
-		$str .= '<input type="hidden" id="'. $updatecontrol .'" name="'. $updatecontrol .'" value="empty" />';
+		$vectorcontrol = $field . '_vectorcontrol';
+		
+		$str .= '<input type="hidden" id="'. $updatecontrol .'" name="'. $updatecontrol .'" value="' . $oldfilename . '" />';
+		$str .= "<input type='hidden' id='". $vectorcontrol ."' name='". $vectorcontrol ."' value='" . $vectordata . "' />";
         $str .= '<input type="hidden"  name="'. $idcontrol .'" value="'.$draftitemid.'" />';
         
        // $type = DBP_AUDIOMP3;
@@ -107,7 +118,7 @@ class data_field_poodll extends data_field_base {
         	
         	case DBP_WHITEBOARDSIMPLE:
         	case DBP_WHITEBOARDFULL:
-        		$str .= fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid);
+        		$str .= fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid,0,0,"","",false, $vectorcontrol,$vectordata);
         		break;
         		
         	case DBP_SNAPSHOT:
@@ -148,12 +159,15 @@ class data_field_poodll extends data_field_base {
         $content = new stdClass();
         $content->fieldid = $this->field->id;
         $content->recordid = $recordid;
+        
 
         $names = explode('_', $name);
         if (!empty($names[2])) {
             if ($names[2] == 'itemid') {
-                // the value will be retrieved by file_get_submitted_draft_itemid, do not need to save in DB
+                // the value will be retrieved by file_get_submitted_draft_itemid
                 return true;
+            }elseif($names[2] == 'vectorcontrol'){
+            	 $content->content2 = $value;
             } else {
                 $content->$names[2] = clean_param($value, PARAM_NOTAGS);  // content[1-4]
             }
