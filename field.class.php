@@ -132,6 +132,24 @@ class data_field_poodll extends data_field_base {
     }
 
 
+	function get_file($recordid, $content=null) {
+        global $DB;
+        if (empty($content)) {
+            if (!$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+                return null;
+            }
+        }
+        $fs = get_file_storage();
+		//remove @@pluginfile
+		$filename = str_replace('@@PLUGINFILE@@/','',$content->content);
+        if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $filename)) {
+            return null;
+        }
+
+        return $file;
+    }
+	
+	
     function display_search_field($value = '') {
         return '<input type="text" size="16" name="f_'.$this->field->id.'" value="'.$value.'" />';
     }
