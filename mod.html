@@ -37,5 +37,13 @@
             <?php echo get_string('maxbytes_desc', 'datafield_poodll'); ?>
         </td>
     </tr>
+	<tr>
+        <td class="c0"><label for="param6"><?php echo get_string('backimageurl', 'datafield_poodll'); ?></label></td>
+        <td class="c1">
+            <input class="c1" type="text" name="param6" id="param6"
+                   value="<?php if (isset($this->field->param6)) { p($this->field->param6); } else { echo ''; } ?>" />
+            <?php echo get_string('backimageurl_desc', 'datafield_poodll'); ?>
+        </td>
+    </tr>
 </table>
 

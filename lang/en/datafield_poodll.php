@@ -30,7 +30,8 @@ $string['pluginname'] = 'PoodLL';
 
 $string['clicktoplay'] = 'Click to Play';
 $string['responsetype'] = 'PoodLL Widget (Response type)';
-
+$string['backimageurl']='Whiteboard background image URL';
+$string['backimageurl_desc']='Optional. Leave blank if unneeded.';
 //these need to go in /mod/data/lang/en/data.php
 $string['poodll'] = 'PoodLL';
 $string['namepoodll'] = 'PoodLL';

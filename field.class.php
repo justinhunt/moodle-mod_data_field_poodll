@@ -47,9 +47,11 @@ class data_field_poodll extends data_field_base {
         if (!isset($this->field->param5)) {
             $this->field->param5 = 0;
         }
+		//response type
         if (!isset($this->field->param4)) {
             $this->field->param4 = DBP_AUDIO;
         }
+
         $options = array();
        // $options['responsetype'] = $this->field->param4;
         $options['trusttext'] = false;
@@ -118,7 +120,12 @@ class data_field_poodll extends data_field_base {
         	
         	case DBP_WHITEBOARDSIMPLE:
         	case DBP_WHITEBOARDFULL:
-        		$str .= fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid,0,0,"","",false, $vectorcontrol,$vectordata);
+				if(isset( $this->field->param6)){
+					$backimageurl = $this->field->param6;
+				}else{
+					$backimageurl = "";
+				}
+        		$str .= fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid,0,0,$backimageurl,"",false, $vectorcontrol,$vectordata);
         		break;
         		
         	case DBP_SNAPSHOT:
