@@ -23,7 +23,6 @@
 
 require_once($CFG->dirroot.'/lib/filelib.php');
 require_once($CFG->dirroot.'/repository/lib.php');
-require_once($CFG->dirroot . '/filter/poodll/poodllresourcelib.php');
 
 define('DBP_AUDIO',0);
 define('DBP_VIDEO',1);
@@ -107,15 +106,15 @@ class data_field_poodll extends data_field_base {
         $usercontextid=context_user::instance($USER->id)->id;
         switch ($this->field->param4){
         	case DBP_AUDIO:
-        		$str .= fetchAudioRecorderForSubmission('auto','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
+        		$str .= \filter_poodll\poodlltools::fetchAudioRecorderForSubmission('auto','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
         		break;
         	
         	case DBP_VIDEO:
-        		$str .= fetchVideoRecorderForSubmission('auto','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
+        		$str .= \filter_poodll\poodlltools::fetchVideoRecorderForSubmission('auto','ignore',$updatecontrol,$usercontextid,"user","draft",$draftitemid);
         		break;
         	
         	case DBP_AUDIOMP3:
-        		$str .= fetchMP3RecorderForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid);
+        		$str .= \filter_poodll\poodlltools::fetchMP3RecorderForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid);
         		break;
         	
         	case DBP_WHITEBOARDSIMPLE:
@@ -125,12 +124,12 @@ class data_field_poodll extends data_field_base {
 				}else{
 					$backimageurl = "";
 				}
-        		$str .= fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid,0,0,$backimageurl,"",false, $vectorcontrol,$vectordata);
+        		$str .= \filter_poodll\poodlltools::fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid,0,0,$backimageurl,"",false, $vectorcontrol,$vectordata);
         		break;
         		
         	case DBP_SNAPSHOT:
 
-        		$str .= fetchSnapshotCameraForSubmission($updatecontrol,'apic.jpg',350,400,$usercontextid,"user","draft",$draftitemid);
+        		$str .= \filter_poodll\poodlltools::fetchSnapshotCameraforSubmission($updatecontrol,'apic.jpg',350,400,$usercontextid,"user","draft",$draftitemid);
         		break;
 
 		}
