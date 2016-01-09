@@ -64,7 +64,7 @@ class data_field_poodll extends data_field_base {
         return $options;
     }
 
-    function display_add_field($recordid=0) {
+    function display_add_field($recordid=0, $formdata=null) {
         global $CFG, $DB, $OUTPUT, $PAGE, $USER;
 
         $text   = '';
