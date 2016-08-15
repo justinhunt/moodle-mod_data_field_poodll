@@ -247,17 +247,14 @@ class data_field_poodll extends data_field_base {
          switch ($this->field->param4){
         	case DBP_AUDIOMP3:
         	case DBP_AUDIO:
-        	 	$str = format_text('{POODLL:type=audio,path='.	urlencode($mediapath) 
-						.',protocol=http,embed=' . $embed . ',embedstring='. $embedstring .'}', FORMAT_HTML);
-        		//this lower string though more efficient didn't load flowplayer embed js on time, so better to defer to the filter
-        		//$str= fetchSimpleAudioPlayer('auto', $mediapath, "http",  $CFG->filter_poodll_audiowidth, 					           $CFG->filter_poodll_audioheight,$embed, $embedstring,false);
+                        //$medialink = "<a href= \"$mediapath\">audio</a>";
+                     $medialink = "<a href= \"$mediapath?d=460x36\">video</a>";
+        	 	$str = format_text($medialink, FORMAT_HTML);
         		break;
         	
         	case DBP_VIDEO:
-        		$str = format_text('{POODLL:type=video,path='.	urlencode($mediapath) 
-						.',protocol=http,embed=' . $embed . ',embedstring='. $embedstring .'}', FORMAT_HTML);
-				//this lower string though more efficient didn't load flowplayer embed js on time, so better to defer to the filter
-				//$str .= fetchSimpleVideoPlayer('auto',$mediapath,$CFG->filter_poodll_videowidth,$CFG->filter_poodll_videoheight,'http',false,true,'Play');
+        		 $medialink = "<a href= \"$mediapath?d=600x400\">video</a>";
+        	 	 $str = format_text($medialink, FORMAT_HTML);
 				break;
 				
         	case DBP_WHITEBOARDSIMPLE:
