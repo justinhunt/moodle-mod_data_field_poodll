@@ -129,7 +129,7 @@ class data_field_poodll extends data_field_base {
         		
         	case DBP_SNAPSHOT:
 
-        		$str .= \filter_poodll\poodlltools::fetchSnapshotCameraforSubmission($updatecontrol,'apic.jpg',350,400,$usercontextid,"user","draft",$draftitemid);
+        		$str .= \filter_poodll\poodlltools::fetchHTML5SnapshotCamera($updatecontrol,350,400,$usercontextid,'user','draft',$draftitemid,'');
         		break;
 
 		}

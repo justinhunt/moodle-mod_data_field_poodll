@@ -1,5 +1,8 @@
 Change List
 =========
+Version 2016081402
+Fixed bug that killed snapshot camera
+
 Version 2016081401
 Support for PoodLL 3
 
