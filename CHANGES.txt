@@ -1,5 +1,8 @@
 Change List
 =========
+Version 2016112101
+Added a labeltype lang string a poodll.png img (which wont display)
+
 Version 2016081402
 Fixed bug that killed snapshot camera
 
