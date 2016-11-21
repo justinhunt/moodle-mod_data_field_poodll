@@ -2,6 +2,8 @@ Change List
 =========
 Version 2016112101
 Added a labeltype lang string a poodll.png img (which wont display)
+Removed reference to setting videowidth and replaced with css class for snapshot and whiteboard images
+Removed size specification on audio player and video player. That can be done with templates
 
 Version 2016081402
 Fixed bug that killed snapshot camera

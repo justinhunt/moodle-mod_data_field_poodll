@@ -247,23 +247,22 @@ class data_field_poodll extends data_field_base {
          switch ($this->field->param4){
         	case DBP_AUDIOMP3:
         	case DBP_AUDIO:
-                        //$medialink = "<a href= \"$mediapath\">audio</a>";
-                     $medialink = "<a href= \"$mediapath?d=460x36\">video</a>";
+            	$medialink = "<a href= \"$mediapath\" class=\"data_field_poodll_submittedaudio\"> an audio </a>";
         	 	$str = format_text($medialink, FORMAT_HTML);
         		break;
         	
         	case DBP_VIDEO:
-        		 $medialink = "<a href= \"$mediapath?d=600x400\">video</a>";
+        		 $medialink = "<a href= \"$mediapath\" class=\"data_field_poodll_submittedvideo\"> a video </a>";
         	 	 $str = format_text($medialink, FORMAT_HTML);
 				break;
 				
         	case DBP_WHITEBOARDSIMPLE:
         	case DBP_WHITEBOARDFULL:
-        		$str = "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\"  src=\"" . $mediapath . "\" />";
+        		$str = "<img alt=\"submittedimage\" class=\"data_field_poodll_whiteboardimage\"  src=\"" . $mediapath . "\" />";
         		break;
         		
         	case DBP_SNAPSHOT:
-        		$str = "<img alt=\"submittedimage\" width=\"" . $CFG->filter_poodll_videowidth . "\" src=\"" . $mediapath . "\" />";
+        		$str = "<img alt=\"submittedimage\" class=\"data_field_poodll_snapshotimage\" src=\"" . $mediapath . "\" />";
         		break;
 			
 			}
