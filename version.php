@@ -23,9 +23,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017082600;
+$plugin->version   = 2018041000;
 $plugin->requires  = 2016052300;//moodle 3.1.0
 $plugin->component = 'datafield_poodll';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.0.3 (Build 2017082600)';
+$plugin->release   = '3.1.0 (Build 2018041000)';
 $plugin->dependencies = array('filter_poodll' => 2017082601);
