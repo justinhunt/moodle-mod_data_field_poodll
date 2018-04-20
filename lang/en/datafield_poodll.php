@@ -35,3 +35,4 @@ $string['backimageurl_desc']='Optional. Leave blank if unneeded.';
 //these need to go in /mod/data/lang/en/data.php
 $string['poodll'] = 'PoodLL';
 $string['namepoodll'] = 'PoodLL';
+$string['privacy:metadata'] = 'The Data Activity Poodll Field plugin does store personal data.';
