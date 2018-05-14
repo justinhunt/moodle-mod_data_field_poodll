@@ -24,6 +24,9 @@
 
 namespace datafield_poodll\privacy;
 
+use mod_data\privacy\datafield_provider;
+use core_privacy\local\request\writer;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -32,8 +35,9 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2018 Justin Hunt https://poodll.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements
-        \core_privacy\local\metadata\null_provider {
+
+class provider implements \core_privacy\local\metadata\null_provider,
+datafield_provider {
 
     use \core_privacy\local\legacy_polyfill;
 
@@ -45,5 +49,38 @@ class provider implements
      */
     public static function _get_reason() {
         return 'privacy:metadata';
+    }
+
+    /**
+     * Exports data about one record in {data_content} table.
+     *
+     * @param \context_module $context
+     * @param \stdClass $recordobj record from DB table {data_records}
+     * @param \stdClass $fieldobj record from DB table {data_fields}
+     * @param \stdClass $contentobj record from DB table {data_content}
+     * @param \stdClass $defaultvalue pre-populated default value that most of plugins will use
+     */
+    public static function export_data_content($context, $recordobj, $fieldobj, $contentobj, $defaultvalue) {
+        if ($fieldobj->param3) {
+            $defaultvalue->field['maxbytes'] = $fieldobj->param3;
+        }
+        // Change file name to file path.
+        $defaultvalue->file = writer::with_context($context)
+            ->rewrite_pluginfile_urls([$recordobj->id, $contentobj->id], 'mod_data', 'content', $contentobj->id,
+                '@@PLUGINFILE@@/' . $defaultvalue->content);
+        unset($defaultvalue->content);
+        writer::with_context($context)->export_data([$recordobj->id, $contentobj->id], $defaultvalue);
+    }
+
+    /**
+     * Allows plugins to delete locally stored data.
+     *
+     * @param \context_module $context
+     * @param \stdClass $recordobj record from DB table {data_records}
+     * @param \stdClass $fieldobj record from DB table {data_fields}
+     * @param \stdClass $contentobj record from DB table {data_content}
+     */
+    public static function delete_data_content($context, $recordobj, $fieldobj, $contentobj) {
+
     }
 }
