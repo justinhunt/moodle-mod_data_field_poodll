@@ -15,17 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    datafield
- * @subpackage poodll
- * @copyright  2012 onwards Justin Hunt
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ *
+ * @package   datafield_poodll
+ * @copyright 2018 Justin Hunt {@link http://www.poodll.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+
+namespace datafield_poodll;
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018113000;
-$plugin->requires  = 2016052300;//moodle 3.1.0
-$plugin->component = 'datafield_poodll';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.1.1 (Build 2018113000)';
-$plugin->dependencies = array('filter_poodll' => 2017082601);
+class constants
+{
+
+
+const M_COMPONENT='datafield_poodll';
+const M_FILEAREA = 'submissions_cloudpoodll';
+const M_SUBPLUGIN='poodll';
+
+const REC_AUDIO = 0;
+const REC_VIDEO = 1;
+const REC_AUDIOMP3 = 2; //deprecated
+const REC_WHITEBOARDSIMPLE = 3;
+const REC_WHITEBOARDFULL = 4;
+const REC_SNAPSHOT = 5;
+
+}

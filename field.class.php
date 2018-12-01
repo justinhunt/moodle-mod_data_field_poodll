@@ -24,13 +24,7 @@
 require_once($CFG->dirroot.'/lib/filelib.php');
 require_once($CFG->dirroot.'/repository/lib.php');
 
-define('DBP_AUDIO',0);
-define('DBP_VIDEO',1);
-define('DBP_AUDIOMP3',2);
-define('DBP_WHITEBOARDSIMPLE',3);
-define('DBP_WHITEBOARDFULL',4);
-define('DBP_SNAPSHOT',5);
-
+use datafield_poodll\constants;
 
 class data_field_poodll extends data_field_base {
 
@@ -48,7 +42,7 @@ class data_field_poodll extends data_field_base {
         }
 		//response type
         if (!isset($this->field->param4)) {
-            $this->field->param4 = DBP_AUDIO;
+            $this->field->param4 = constants::REC_AUDIO;
         }
 
         $options = array();
@@ -102,7 +96,7 @@ class data_field_poodll extends data_field_base {
 		$str .= "<input type='hidden' id='". $vectorcontrol ."' name='". $vectorcontrol ."' value='" . $vectordata . "' />";
         $str .= '<input type="hidden"  name="'. $idcontrol .'" value="'.$draftitemid.'" />';
         
-       // $type = DBP_AUDIOMP3;
+       // $type = constants::REC_AUDIOMP3;
         $usercontextid=context_user::instance($USER->id)->id;
         $callbackjs=false;
         $hints=Array();
@@ -110,23 +104,20 @@ class data_field_poodll extends data_field_base {
         $hints['modulecontextid']=$this->context->id;
 
         switch ($this->field->param4){
-        	case DBP_AUDIO:
+        	case constants::REC_AUDIO:
+            case constants::REC_AUDIOMP3:
         		$str .= \filter_poodll\poodlltools::fetchAudioRecorderForSubmission('auto','ignore',$updatecontrol,
                     $usercontextid,"user","draft",$draftitemid,$timelimit,$callbackjs,$hints);
         		break;
         	
-        	case DBP_VIDEO:
+        	case constants::REC_VIDEO:
         		$str .= \filter_poodll\poodlltools::fetchVideoRecorderForSubmission('auto','ignore',$updatecontrol,
                     $usercontextid,"user","draft",$draftitemid,$timelimit,$callbackjs,$hints);
         		break;
+
         	
-        	case DBP_AUDIOMP3:
-        		$str .= \filter_poodll\poodlltools::fetchMP3RecorderForSubmission($updatecontrol,$usercontextid,
-                    "user","draft",$draftitemid,$timelimit,$callbackjs,$hints);
-        		break;
-        	
-        	case DBP_WHITEBOARDSIMPLE:
-        	case DBP_WHITEBOARDFULL:
+        	case constants::REC_WHITEBOARDSIMPLE:
+        	case constants::REC_WHITEBOARDFULL:
 				if(isset( $this->field->param6)){
 					$backimageurl = $this->field->param6;
 				}else{
@@ -135,7 +126,7 @@ class data_field_poodll extends data_field_base {
         		$str .= \filter_poodll\poodlltools::fetchWhiteboardForSubmission($updatecontrol,$usercontextid,"user","draft",$draftitemid,0,0,$backimageurl,"",false, $vectorcontrol,$vectordata);
         		break;
         		
-        	case DBP_SNAPSHOT:
+        	case constants::REC_SNAPSHOT:
 
         		$str .= \filter_poodll\poodlltools::fetchHTML5SnapshotCamera($updatecontrol,350,400,$usercontextid,'user','draft',$draftitemid,'');
         		break;
@@ -253,23 +244,23 @@ class data_field_poodll extends data_field_base {
 					$this->context->id, 'mod_data', 'content', $content->id, $this->get_options());
                			
          switch ($this->field->param4){
-        	case DBP_AUDIOMP3:
-        	case DBP_AUDIO:
+        	case constants::REC_AUDIOMP3:
+        	case constants::REC_AUDIO:
             	$medialink = "<a href= \"$mediapath\" class=\"data_field_poodll_submittedaudio\"> an audio </a>";
         	 	$str = format_text($medialink, FORMAT_HTML);
         		break;
         	
-        	case DBP_VIDEO:
+        	case constants::REC_VIDEO:
         		 $medialink = "<a href= \"$mediapath\" class=\"data_field_poodll_submittedvideo\"> a video </a>";
         	 	 $str = format_text($medialink, FORMAT_HTML);
 				break;
 				
-        	case DBP_WHITEBOARDSIMPLE:
-        	case DBP_WHITEBOARDFULL:
+        	case constants::REC_WHITEBOARDSIMPLE:
+        	case constants::REC_WHITEBOARDFULL:
         		$str = "<img alt=\"submittedimage\" class=\"data_field_poodll_whiteboardimage\"  src=\"" . $mediapath . "\" />";
         		break;
         		
-        	case DBP_SNAPSHOT:
+        	case constants::REC_SNAPSHOT:
         		$str = "<img alt=\"submittedimage\" class=\"data_field_poodll_snapshotimage\" src=\"" . $mediapath . "\" />";
         		break;
 			
@@ -291,6 +282,23 @@ class data_field_poodll extends data_field_base {
      */
     function file_ok($relativepath) {
         return true;
+    }
+
+    /**
+     * Prints the respective type icon
+     *
+     * @global object
+     * @return string
+     */
+    function image() {
+        global $OUTPUT;
+
+        $params = array('d'=>$this->data->id, 'fid'=>$this->field->id, 'mode'=>'display', 'sesskey'=>sesskey());
+        $link = new moodle_url('/mod/data/field.php', $params);
+        $str = '<a href="'.$link->out().'">';
+        $str .= $OUTPUT->pix_icon('field/' . $this->type, $this->type, 'datafield_' . $this->type);
+        $str .= '</a>';
+        return $str;
     }
 }
 

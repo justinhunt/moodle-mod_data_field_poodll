@@ -1,5 +1,9 @@
 Change List
 =========
+Version 3.1.1(Build 2018113000)
+-Small code refactor
+-Removal of audio mp3 audio. audio is always mp3 these days
+
 Version 3.1.0(Build 2018041000)
 -Implemented new Moodle Privacy API
 

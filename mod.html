@@ -14,15 +14,14 @@
         <td class="c0"><label for="param4"><?php echo get_string('responsetype', 'datafield_poodll'); ?></label></td>
         <td class="c1">
            <?php
-                $choices = array(DBP_AUDIO=>'audio',
-                		DBP_VIDEO=>'video', 
-                		DBP_AUDIOMP3=>'audio mp3',
-                		DBP_WHITEBOARDFULL=>'whiteboard',
-                		DBP_SNAPSHOT=>'snapshot');
+                $choices = array(constants::REC_AUDIO=>'audio',
+                		constants::REC_VIDEO=>'video',
+                		constants::REC_WHITEBOARDFULL=>'whiteboard',
+                		constants::REC_SNAPSHOT=>'snapshot');
                 	
                 echo html_writer::select($choices, 
                 			'param4', 
-                			isset($this->field->param4) ? $this->field->param4:DBP_AUDIOMP3 , 
+                			isset($this->field->param4) ? $this->field->param4:constants::REC_AUDIOMP3 ,
                 			false, 
                 			array('id' => 'param4')
                 			);
