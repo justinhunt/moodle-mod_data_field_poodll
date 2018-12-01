@@ -1,3 +1,4 @@
+<?php use \datafield_poodll\constants; ?>
 <table width="100%" cellpadding="5">
     <tr>
         <td class="c0"><label for="name"><?php echo get_string('fieldname', 'data'); ?></label></td>
@@ -21,7 +22,7 @@
                 	
                 echo html_writer::select($choices, 
                 			'param4', 
-                			isset($this->field->param4) ? $this->field->param4:constants::REC_AUDIOMP3 ,
+                			isset($this->field->param4) ? $this->field->param4 : constants::REC_AUDIO,
                 			false, 
                 			array('id' => 'param4')
                 			);
