@@ -283,22 +283,5 @@ class data_field_poodll extends data_field_base {
     function file_ok($relativepath) {
         return true;
     }
-
-    /**
-     * Prints the respective type icon
-     *
-     * @global object
-     * @return string
-     */
-    function image() {
-        global $OUTPUT;
-
-        $params = array('d'=>$this->data->id, 'fid'=>$this->field->id, 'mode'=>'display', 'sesskey'=>sesskey());
-        $link = new moodle_url('/mod/data/field.php', $params);
-        $str = '<a href="'.$link->out().'">';
-        $str .= $OUTPUT->pix_icon('field/' . $this->type, $this->type, 'datafield_' . $this->type);
-        $str .= '</a>';
-        return $str;
-    }
 }
 

@@ -26,13 +26,13 @@
 
 $string['maxbytes'] = 'Maximum embedded file size (bytes)';
 $string['maxbytes_desc'] = 'If set to zero will be unlimited by default';
-$string['pluginname'] = 'PoodLL';
-$string['fieldtypelabel'] = 'PoodLL';
+$string['pluginname'] = 'Poodll';
+$string['fieldtypelabel'] = 'Poodll';
 $string['clicktoplay'] = 'Click to Play';
-$string['responsetype'] = 'PoodLL Widget (Response type)';
+$string['responsetype'] = 'Poodll Widget (Response type)';
 $string['backimageurl']='Whiteboard background image URL';
 $string['backimageurl_desc']='Optional. Leave blank if unneeded.';
 //these need to go in /mod/data/lang/en/data.php
-$string['poodll'] = 'PoodLL';
-$string['namepoodll'] = 'PoodLL';
+$string['poodll'] = 'Poodll';
+$string['namepoodll'] = 'Poodll';
 $string['privacy:metadata'] = 'The Data Activity Poodll Field plugin does store personal data.';
