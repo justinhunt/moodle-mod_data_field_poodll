@@ -1,7 +1,7 @@
 Change List
 =========
 Version 3.1.2 (Build 2022120200)
-- added new icons, will it work?
+- added new icons
 
 Version 3.1.1(Build 2018113000)
 -Small code refactor
